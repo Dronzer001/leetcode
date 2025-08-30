@@ -1,0 +1,36 @@
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int i=nums.size()-2;
+       for(;i>=0;i--){
+        if(nums[i]<nums[i+1]) break;
+       }
+       if(i==-1){reverse(nums.begin(),nums.end());return;}
+       else{
+        for(int j=nums.size()-1;j>=0;j--){
+            if(nums[j]>nums[i]){
+                swap(nums[j],nums[i]);
+                reverse(nums.begin()+i+1,nums.end());
+                return;
+            }
+        }
+       }
+
+    }
+};
+/*
+1) Find the pivot index:
+Traverse from the right to find the first index i such that nums[i]<nums[i+1]. 
+This identifies the point where the ascending order from the end breaks. 
+If no such i exists, the sequence is in descending order, so the next permutation is the lowest (sorted) order.
+
+2)Find the successor index:
+If the pivot was found, traverse from the right again to find the first index j such that 
+nums[j]>nums[i]. This is the next bigger number to swap with the pivot.
+
+3)Swap pivot and successor:
+Swap the values at indices i and j.
+
+4)Reverse the suffix:
+Reverse the sequence from i+1 to the end. This makes the suffix the lowest possible order, ensuring the next permutation is just one step greater than the original.
