@@ -1,0 +1,19 @@
+class Solution {
+public:
+int atmost(vector<int>&nums, int k){
+    int start=0,count=0,odd=0;
+    //a condition for k=0
+    for(int end=0;end<nums.size();end++){
+        if(nums[end]%2==1) odd+=1;
+        while(odd>k){
+            if(nums[start]%2==1) odd--;
+            start+=1;
+        }
+        count+=end-start+1;
+    }
+    return count;
+}
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        return atmost(nums,k)-atmost(nums,k-1);
+    }
+};
