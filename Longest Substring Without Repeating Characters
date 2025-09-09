@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int start=0,count=0;
+        unordered_map<char,int>ans;
+        for(int end=0;end<s.length();end++){
+            ans[s[end]]++;
+            
+            while(ans[s[end]]>1){
+                ans[s[start]]--;
+                if(ans[s[start]]==0) ans.erase(s[start]);
+                start+=1;
+            }
+            count=max(end-start+1,count);
+            cout<<count<<" ";
+        }
+        return count;
+    }
+};
