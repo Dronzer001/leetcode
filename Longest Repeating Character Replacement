@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int start=0,count=0,mf=0,ws=0;
+        unordered_map<char,int>ans;
+        for(int end=0;end<s.length();end++){
+            ans[s[end]]++;
+            ws=end-start+1;
+            mf=max(ans[s[end]],mf);
+            while(ws-mf>k){
+                ans[s[start]]--;
+                start+=1;
+                ws=end-start+1;
+            }
+            count=max(count,ws);
+        }
+        return count;
+
+    }
+};
