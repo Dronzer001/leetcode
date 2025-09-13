@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int minArrivalsToDiscard(vector<int>& arrivals, int w, int m) {
+     int d=0,start=0;
+     int n=arrivals.size();
+     if(n==0) return 0;
+     unordered_map<int,int>ans;
+     vector<int>kept(n,0);
+     for(int i=0;i<n;i++){
+        int index=i-w;
+        if(index>=0 && kept[index]) ans[arrivals[index]]--;
+        int item=arrivals[i];
+        if(ans[item]<m){
+            kept[i]=true;
+            ans[item]++;
+        }
+        else{
+            d+=1;
+        }
+     }
+     return d;   
+    }
+};
