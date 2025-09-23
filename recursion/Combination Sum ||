@@ -1,0 +1,23 @@
+class Solution {
+public:
+void backtrack(int index,vector<vector<int>>&ans,vector<int>&mid,vector<int>&nums,int target,int sum){
+    if(sum==target){
+        ans.push_back(mid);
+        return;
+    }
+    if(sum>target) return;
+    for(int i=index;i<nums.size();i++){
+        if(i>index && nums[i]==nums[i-1]) continue;
+        mid.push_back(nums[i]);
+        backtrack(i+1,ans,mid,nums,target,sum+nums[i]);
+        mid.pop_back();
+    }
+}
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        vector<vector<int>>ans;
+        vector<int>mid;
+        sort(candidates.begin(),candidates.end());
+        backtrack(0,ans,mid,candidates,target,0);
+        return ans;
+    }
+};
