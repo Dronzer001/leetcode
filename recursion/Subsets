@@ -1,0 +1,19 @@
+class Solution {
+public:
+void sub(int index,vector<int>&mid,vector<vector<int>>&ans,vector<int>nums){
+        if(index==nums.size()){
+            ans.push_back(mid);
+            return;
+        }
+        mid.push_back(nums[index]);
+        sub(index+1,mid,ans,nums);
+        mid.pop_back();
+        sub(index+1,mid,ans,nums);
+}
+    vector<vector<int>> subsets(vector<int>& nums) {
+        vector<vector<int>>ans;
+        vector<int>mid;
+        sub(0,mid,ans,nums);
+        return ans;
+    }
+};
