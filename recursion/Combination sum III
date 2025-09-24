@@ -1,0 +1,21 @@
+class Solution {
+public:
+    void backtrack(int k,int n, vector<int>&mid,vector<vector<int>>&ans,int sum,int index){
+        if(mid.size()==k){
+            if(sum==n) ans.push_back(mid);
+            return;
+        }
+        if(index>9) return;
+        mid.push_back(index);
+        backtrack(k,n,mid,ans,sum+index,index+1);
+        mid.pop_back();
+        backtrack(k,n,mid,ans,sum,index+1);
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        if(n>45) return {};
+        vector<vector<int>>ans;
+        vector<int>mid;
+        backtrack(k,n,mid,ans,0,1);
+        return ans;
+    }
+};
