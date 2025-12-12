@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> maxKDistinct(vector<int>& nums, int k) {
+        int n=nums.size();
+        sort(nums.begin(),nums.end());
+        vector<int>ans;
+        set<int>s;
+        for(int i=n-1;i>=0;i--){
+            if(s.size()>=k) break;
+            s.insert(nums[i]);
+        }
+        for(int element:s) ans.push_back(element);
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
