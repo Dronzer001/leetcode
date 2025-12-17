@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int totalWaviness(int num1, int num2) {
+        int ans=0;
+        if(num2<100) return ans;
+        int i=num1;
+        while(i<100 && i<=num2) i+=1;
+        if(i>num2) return ans;
+        for(i;i<=num2;i+=1){
+            string s=to_string(i);
+            for(int i=1; i<s.length()-1;i+=1){
+                if((s[i]>s[i-1] && s[i]> s[i+1]) || (s[i]<s[i-1] && s[i]< s[i+1])) ans+=1;
+            }
+        }
+        return ans;
+    }
+};
