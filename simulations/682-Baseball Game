@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int calPoints(vector<string>& operations) {
+        int n=operations.size();
+        stack<int>scores;
+        int ans=0;
+        for(string op: operations){
+            int n1=op.length();
+            if(op=="+") {
+                int top1=scores.top();
+                scores.pop();
+                int top2=scores.top();
+                scores.pop();
+                scores.push(top2);
+                scores.push(top1);
+                scores.push(top1+top2);
+            }
+            else if(op=="D") scores.push(2*scores.top());
+            else if(op=="C") scores.pop();
+            else{
+                int num=stoi(op);
+                cout<<num<<" ";
+                scores.push(num);
+            }
+        }
+        while(!scores.empty()){
+            ans+=scores.top();
+            scores.pop();
+        }
+        return ans;       
+    }
+};
