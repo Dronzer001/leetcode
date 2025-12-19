@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int minimumDistance(vector<int>& nums) {
+        int n=nums.size(),ans=INT_MAX;
+        unordered_map<int,vector<int>>mid;
+        for(int i=0;i<n;i+=1){
+            int element=nums[i];
+            mid[element].push_back(i);
+            if(mid[element].size() >=3){
+                int a=mid[element].size();
+                int first=mid[element][a-1],
+                second=mid[element][a-2],
+                third=mid[element][a-3];
+                ans=min(ans, abs(first-second)+abs(second-third)+abs(third-first));
+            }
+        }
+        return ans==INT_MAX? -1:ans;
+    }
+};
