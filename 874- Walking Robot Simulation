@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int robotSim(vector<int>& commands, vector<vector<int>>& obstacles) {
+        int x=0,y=0;
+        int d=2;//0=e,1=w,2=n,3=s
+        vector<vector<int>>dir={{1,0},{-1,0},{0,1},{0,-1}};//e,w,n,s
+        unordered_set<long long>obs;
+        for(auto it:obstacles){
+            long long key=((long long)(it[0]+30000)<<16) | (it[1]+30000);
+            obs.insert(key);
+        }
+        int ans=0;
+        int n=obstacles.size(),m=commands.size();
+        for(int cmd:commands){
+            if(cmd==-1) {
+                if(d==0) d=3;
+                else if(d==1) d=2;
+                else if(d==2) d=0;
+                else d=1; 
+            }
+            else if(cmd==-2) {
+                if(d==0) d=2;
+                else if(d==1) d=3;
+                else if(d==2) d=1;
+                else d=0; 
+            }
+            else{
+                for(int k=0;k<cmd;k+=1){
+                    int dx=x+dir[d][0];
+                    int dy=y+dir[d][1];
+                    long long key=((long long)(dx+30000)<<16)|(dy+30000);
+                    if(obs.count(key)) break;
+                    else{
+                        x=dx;
+                        y=dy;
+                    }
+                }
+            }
+            cout<<x<<" "<<y<<"\n";
+            ans=max(ans, x*x +y*y);
+        }
+        return ans;
+    }
+};
