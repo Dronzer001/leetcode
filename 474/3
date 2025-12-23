@@ -1,0 +1,27 @@
+class Solution {
+public:
+bool tried(long long mid,vector<int>& d, vector<int>& r){
+    long long d1=mid- mid/r[0];
+    long long d2=mid- mid/r[1];
+
+    long long l=lcm(r[0],r[1]);
+
+    long long freehours= mid- mid/l;
+    return d1>=d[0] && d2>=d[1] && freehours>= (long long)d[0]+d[1];
+}
+    long long minimumTime(vector<int>& d, vector<int>& r) {
+        long long low=0;
+        long long high=2e18,ans=-1;
+        long long mid=0;
+        while(low<=high){
+            mid=low+(high-low)/2;
+            if(tried(mid,d,r)){
+                ans=mid;
+                high=mid-1;
+            }
+            else low=mid+1;
+            cout<<low<<" "<<mid<<" "<<high<<"\n";
+        }
+        return ans;
+    }
+};
