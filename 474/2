@@ -1,0 +1,16 @@
+class Solution {
+public:
+    long long maxProduct(vector<int>& nums) {
+        int n=nums.size();
+        vector<pair<int,char>>mid;
+        for(int i=0;i<n;i+=1){
+            char c= nums[i]>=0 ?'+':'-';
+            mid.push_back({abs(nums[i]),c});
+        }
+        sort(mid.begin(),mid.end());
+        bool plus=true;
+        plus= mid[n-1].second =='+'? plus:!plus;
+        plus= mid[n-2].second =='+'? plus:!plus;
+        return 1LL*mid[n-1].first*mid[n-2].first*100000;
+    }
+};
