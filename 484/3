@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long countPairs(vector<string>& words) {
+        int n=words.size();
+        int m=words[0].size();
+        unordered_map<string,int>mid;
+        for(string word:words){
+            char start=word[0];
+            string key="";
+            for(char c:word){
+                int diff=(c-'a'-start+26)%26;
+                key+=to_string(diff);
+            }
+            mid[key]++;
+        }
+        long long ans=0;
+        for(auto it:mid){
+            int temp=it.second;
+            ans+=1LL*temp*(temp-1)/2;
+        }
+        return ans;
+    }
+};
