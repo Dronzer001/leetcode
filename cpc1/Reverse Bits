@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int reverseBits(int n) {
+        string s="";
+        while(n){
+            string s1=to_string(n%2);
+            s=s1+s;
+            n/=2;
+        }
+        if(s.length()<32) s.insert(0,32-s.length(),'0');
+        reverse(s.begin(),s.end());
+        cout<<s<<endl;
+        int ans=0,j=0;
+        for(int i=s.length()-1;i>=0;i-=1){
+            ans+= (s[i]-'0')*pow(2,j);
+            j+=1;
+        }
+        return ans;
+    }
+};
