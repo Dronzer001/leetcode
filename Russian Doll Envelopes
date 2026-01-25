@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxEnvelopes(vector<vector<int>>& envelopes) {
+        int n=envelopes.size();
+        if(n==1) return 1;
+        sort(envelopes.begin(),envelopes.end(),[](const vector<int>&a,const vector<int>&b){
+            if(a[0]==b[0]) return a[1]>b[1];
+            else return a[0]<b[0];
+        });
+        vector<int>heights(n,0);
+        int j=0;
+        for(auto it:envelopes){
+            heights[j]=it[1];
+            j+=1;
+        }
+        vector<int>lis;
+        lis.push_back(heights[0]);
+        for(int i=1;i<n;i+=1){
+            if(heights[i]>lis.back()) lis.push_back(heights[i]);
+            else{
+                auto it=lower_bound(lis.begin(),lis.end(),heights[i]);
+                *it=heights[i];
+            }
+        }
+        return lis.size();
+    }
+};
