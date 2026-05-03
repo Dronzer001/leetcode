@@ -1,0 +1,21 @@
+class Solution {
+public:
+    void generate(int sum,int idx,vector<int>&nums,int target, vector<int>&mid, vector<vector<int>>&ans){
+        if(target==sum){
+            ans.push_back(mid);
+            return;
+        }
+        if(idx==nums.size() || target<sum) return;
+        mid.push_back(nums[idx]);
+        generate(sum+nums[idx],idx,nums,target,mid,ans);
+        mid.pop_back();
+        generate(sum,idx+1,nums,target,mid,ans);
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        sort(candidates.begin(),candidates.end());
+        vector<int>mid;
+        vector<vector<int>>ans;
+        generate(0,0,candidates,target,mid,ans);
+        return ans;
+    }
+};
