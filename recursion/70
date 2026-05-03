@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int possible(int idx, int n, vector<int>&dp){
+        if(idx>n) return 0;
+        if(idx==n){return 1;}
+        if(dp[idx]!=-1) return dp[idx];
+        int one=possible(idx+1,n,dp);
+        int two=possible(idx+2,n,dp);
+        return dp[idx]=one +two;
+    }
+    int climbStairs(int n) {
+        vector<int>dp(n+1,-1);
+        return possible(0,n,dp);
+    }
+};
