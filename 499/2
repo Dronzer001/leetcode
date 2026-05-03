@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string sortVowels(string s) {
+        vector<int>freq(26,-1);
+        unordered_map<char,int>mid;
+        int n=s.length();
+        for(int i=0;i<n;i+=1){
+            if(s[i]=='a'||s[i]=='i'||s[i]=='e'|| s[i]=='o' || s[i]=='u'){
+                if(freq[s[i]-'a']==-1) freq[s[i]-'a']=i;
+                mid[s[i]]++;
+            }
+        }
+        string ans="";
+        vector<pair<char,int>>mid1;
+        for(auto it:mid) mid1.push_back({it.first,it.second});
+        sort(mid1.begin(),mid1.end(),[&](auto&a, auto&b){
+            if(a.second!=b.second) return a.second>b.second;
+            else return freq[a.first-'a']<freq[b.first-'a'];
+        });
+        for(auto it:mid1){
+            for(int i=0;i<it.second;i+=1) ans+=it.first;
+        }
+        int j=0;
+        for(int i=0;i<n;i+=1){
+            if(s[i]=='a'||s[i]=='i'||s[i]=='e'|| s[i]=='o' || s[i]=='u'){
+                s[i]=ans[j];
+                j+=1;
+            }
+        }
+        return s;
+    }
+};
