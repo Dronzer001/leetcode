@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void generate(int idx, vector<int>&nums, vector<int>&mid, vector<vector<int>>&ans, vector<bool>&used){
+        if(mid.size()==nums.size()){
+            ans.push_back(mid);
+            return;
+        }
+        for(int i=0;i<nums.size();i+=1){
+            if(used[i]) continue;
+            used[i]=true;
+            mid.push_back(nums[i]);
+            generate(i+1,nums,mid,ans,used);
+            mid.pop_back();
+            used[i]=false;
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        int n=nums.size();
+        vector<int>mid;
+        vector<bool>used(n,false);
+        vector<vector<int>>ans;
+        generate(0,nums,mid,ans,used);
+        return ans;
+    }
+};
