@@ -10,3 +10,12 @@ public:
         return max1;
     }
 };
+or
+int solve(int i, vector<int>& nums){
+    if(i == 0) return nums[0];
+
+    int take = solve(i-1, nums) + nums[i];
+    int start = nums[i];
+
+    return max(take, start);
+}
