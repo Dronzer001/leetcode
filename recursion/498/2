@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int firstStableIndex(vector<int>& nums, int k) {
+        int n=nums.size();
+        vector<int>max1(n,0),min1(n,0);
+        int mx=INT_MIN,mn=INT_MAX;
+        for(int i=0;i<n;i+=1){ if(mx<nums[i]) mx=nums[i];max1[i]=mx;}
+        for(int j=n-1;j>=0;j-=1){if(mn>nums[j])mn=nums[j]; min1[j]=mn;}
+        int ans=-1;
+        for(int i=0;i<n;i+=1){
+            if(max1[i]-min1[i] <=k) return i;
+        }
+        return ans;
+    }
+};
