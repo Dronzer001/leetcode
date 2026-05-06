@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int>> colorGrid(int n, int m, vector<vector<int>>& sources) {
+        vector<vector<int>>grid(n,vector<int>(m,0));
+        queue<pair<int,int>>q;
+        for(int i=0;i<sources.size();i+=1){
+            grid[sources[i][0]][sources[i][1]]=sources[i][2];
+            q.push({sources[i][0],sources[i][1]});
+        }
+        vector<vector<int>>dir={{-1,0},{1,0},{0,1},{0,-1}};
+        while(!q.empty()){
+            int sz=q.size();
+            unordered_map<int,int>mid;
+            for(int i=0;i<sz;i+=1){
+                auto it=q.front();
+                q.pop();
+                for(auto it1:dir){
+                    int row=it.first+it1[0];
+                    int col=it.second+it1[1];
+                    if(row>=0 && col>=0 && row<n && col<m  && grid[row][col]==0){
+                        int key=row*m+col;
+                        mid[key]=max(mid[key],grid[it.first][it.second]);
+                    }
+                }
+            }
+            for(auto it:mid){
+                int row=it.first/m;
+                int col=it.first%m;
+                grid[row][col]=it.second;
+                q.push({row,col});
+            }
+        }
+        return grid;
+    }
+};
