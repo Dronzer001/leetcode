@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int mirrorFrequency(string s) {
+        int n=s.length();
+        unordered_map<char,int>mid;
+        for(int i=0;i<n;i+=1){
+            mid[s[i]]++;
+        }
+        set<char>st;
+        int ans=0;
+        for(auto it:mid){
+            char m;
+            char curr=it.first;
+            if(ischar(curr)) m=('z'-curr)+'a';
+            else m=(9-curr)+'0';
+            ans+=abs(it.second-mid[m]);
+            mid.erase(it);
+            mid.erase(m);
+        }
+        return ans;
+    }
+};
