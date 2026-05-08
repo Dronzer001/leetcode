@@ -1,0 +1,13 @@
+class Solution {
+public:
+    vector<double> internalAngles(vector<int>& s) {
+        sort(s.begin(),s.end());
+        int area=s[0]+s[1]-s[2];
+        if(area<=0) return {};
+        double sa=s[0],sb=s[1],sc=s[2];
+        double a=acos((-sa*sa+sb*sb+sc*sc)/(2.0*sb*sc))*180.0/M_PI;
+        double b=acos((sa*sa-sb*sb+sc*sc)/(2.0*sa*sc))*180.0/M_PI;
+    double c=acos((sa*sa+sb*sb-sc*sc)/(2.0*sb*sa))*180.0/M_PI;
+        return {a,b,c};
+    }
+};
