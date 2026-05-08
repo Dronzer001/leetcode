@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void isPrime(vector<bool>&mid){
+        mid[0]=false;
+        mid[1]=false;
+        for(int i=2;i*i <=200005;i+=1){
+            if(mid[i]==true){
+                for(int j=i*i; j<=200005;j+=i) mid[j]=false;
+            }
+        }
+    }
+    int minOperations(vector<int>& nums) {
+        vector<bool>mid(200005,true);
+        isPrime(mid);
+        int ans=0;
+        for(int i=0;i<nums.size();i+=1){
+            if(i%2==1 && mid[nums[i]]==true){
+                int curr=nums[i];
+                while(mid[curr]==true) curr+=1;
+                ans+=curr-nums[i];
+            }
+            else if(i%2==0 && mid[nums[i]]==false) {
+                int curr=nums[i];
+                while(mid[curr]==false) curr+=1;
+                ans+=curr-nums[i];
+            }
+        }
+        return ans;
+    }
+};
