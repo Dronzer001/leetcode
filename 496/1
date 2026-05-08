@@ -1,22 +1,23 @@
 class Solution {
 public:
     int mirrorFrequency(string s) {
-        int n=s.length();
         unordered_map<char,int>mid;
-        for(int i=0;i<n;i+=1){
+        set<pair<char,char>>st;
+        for(int i=0;i<s.length();i+=1){
             mid[s[i]]++;
+            if(isalpha(s[i])){
+                char m=char('a'+'z'-s[i]);
+                if(st.count({s[i],m})==0 && st.count({m,s[i]})==0) st.insert({s[i],m});
+            }
+            else{
+                char m=char('0'+'9'-s[i]);
+                if(st.count({s[i],m})==0 && st.count({m,s[i]})==0) st.insert({s[i],m});
+            }
         }
-        set<char>st;
-        int ans=0;
-        for(auto it:mid){
-            char m;
-            char curr=it.first;
-            if(ischar(curr)) m=('z'-curr)+'a';
-            else m=(9-curr)+'0';
-            ans+=abs(it.second-mid[m]);
-            mid.erase(it);
-            mid.erase(m);
+        int sum=0;
+        for(auto it:st){
+            sum+=abs(mid[it.first]-mid[it.second]);
         }
-        return ans;
+        return sum;
     }
 };
