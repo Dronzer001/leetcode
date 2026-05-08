@@ -1,0 +1,69 @@
+class Solution {
+public:
+    int longestBalanced(string s) {
+
+        int n = s.length();
+
+        vector<int> z(n,0), o(n,0);
+
+        for(int i = 0; i < n; i++) {
+
+            if(i > 0) {
+                z[i] = z[i-1];
+                o[i] = o[i-1];
+            }
+
+            if(s[i] == '0') z[i]++;
+            else o[i]++;
+        }
+
+        int zero = z[n-1];
+        int one = o[n-1];
+
+        unordered_map<int, vector<int>> mid;
+
+        mid[0].push_back(-1);
+
+        int ans = 0, curr = 0;
+
+        for(int i = 0; i < n; i++) {
+
+            curr += (s[i] == '1') ? 1 : -1;
+
+            // already balanced
+            if(mid.count(curr)) {
+                ans = max(ans, i - mid[curr][0]);
+            }
+
+            // diff = +2 -> need extra 0 outside
+            if(mid.count(curr - 2)) {
+
+                for(int idx : mid[curr - 2]) {
+
+                    int insideZero =
+                        z[i] - (idx >= 0 ? z[idx] : 0);
+
+                    if(insideZero < zero)
+                        ans = max(ans, i - idx);
+                }
+            }
+
+            // diff = -2 -> need extra 1 outside
+            if(mid.count(curr + 2)) {
+
+                for(int idx : mid[curr + 2]) {
+
+                    int insideOne =
+                        o[i] - (idx >= 0 ? o[idx] : 0);
+
+                    if(insideOne < one)
+                        ans = max(ans, i - idx);
+                }
+            }
+
+            mid[curr].push_back(i);
+        }
+
+        return ans;
+    }
+};
